@@ -30,7 +30,7 @@ const {data: topics, status} = await repo.search(() => ({query: queryDeb.value})
             <div v-for="topic in topics" :key="topic.id"
                  class="flex flex-col md:flex-row gap-2.5 px-5">
                 <div class="bg-gray-100 dark:bg-gray-800 border-2 dark:border-gray-700 rounded-md grow px-2.5 py-2 truncate">
-                    <p class="truncate">{{ topic.name }}</p>
+                    <p class="truncate" :title="topic.name">{{ topic.name }}</p>
                 </div>
 
                 <div class="shrink-0 flex gap-2.5">
@@ -48,6 +48,11 @@ const {data: topics, status} = await repo.search(() => ({query: queryDeb.value})
 
                     <div class="grow bg-fuchsia-400 dark:bg-fuchsia-900 border-2 border-fuchsia-500  dark:border-fuchsia-700 rounded-md px-2.5 py-2 text-center w-20 font-semibold">
                         {{ topic.downloads }}
+                    </div>
+
+                    <div class="hidden xl:block grow bg-orange-400 dark:bg-orange-900 border-2 border-orange-500  dark:border-orange-700 rounded-md px-2.5 py-2 text-center w-36 font-semibold truncate"
+                         :title="topic.author">
+                        {{ topic.author }}
                     </div>
                 </div>
             </div>
