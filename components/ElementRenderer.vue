@@ -62,7 +62,7 @@ defineProps<{
          class="group-hover:ring-4 inline"
          :class="{'float-left clear-left pe-2.5 pb-1.5': direction === 'left', 'float-right clear-right ps-2.5 pb-1.5': direction === 'right', 'max-w-[33%]': aligned}"/>
 
-    <hr v-if="type == 'horizontal'" class="my-1.5"/>
+    <hr v-if="type == 'horizontal'" class="my-1.5 dark:border-primary-900"/>
 
     <SpoilerElement v-if="type == 'spoiler'" :text="text" :children="children"/>
 </template>
