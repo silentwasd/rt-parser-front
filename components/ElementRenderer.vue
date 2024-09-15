@@ -38,6 +38,14 @@ defineProps<{
     <p v-if="type == 'paragraph'">
         <ElementRenderer v-for="element in children" v-bind="element"/>
     </p>
+
+    <strong v-if="type == 'strong'" class="font-semibold">
+        <ElementRenderer v-for="element in children" v-bind="element"/>
+    </strong>
+
+    <em v-if="type == 'em'" class="">
+        <ElementRenderer v-for="element in children" v-bind="element"/>
+    </em>
 </template>
 
 <style scoped>
