@@ -9,7 +9,8 @@ const {data: topics, status} = await repo.search(() => ({query: queryDeb.value})
 </script>
 
 <template>
-    <div class="flex flex-col items-center h-dvh overflow-auto">
+    <div class="flex flex-col items-center h-dvh overflow-auto"
+         :class="{'justify-center': !topics}">
         <div class="w-full p-5 sticky top-0 bg-white dark:bg-gray-900">
             <div class="w-full max-w-[600px] mx-auto flex gap-2.5">
                 <UInput v-model="query"
@@ -27,8 +28,9 @@ const {data: topics, status} = await repo.search(() => ({query: queryDeb.value})
         </div>
 
         <div class="w-full flex flex-col gap-5 md:gap-2.5 pb-5">
-            <div v-for="topic in topics" :key="topic.id"
-                 class="flex flex-col md:flex-row gap-2.5 px-5">
+            <NuxtLink v-for="topic in topics" :key="topic.id"
+                      class="flex flex-col md:flex-row gap-2.5 px-5"
+                      :to="`/topics/${topic.id}`">
                 <div class="bg-gray-100 dark:bg-gray-800 border-2 dark:border-gray-700 rounded-md grow px-2.5 py-2 truncate">
                     <p class="truncate" :title="topic.name">{{ topic.name }}</p>
                 </div>
@@ -55,7 +57,7 @@ const {data: topics, status} = await repo.search(() => ({query: queryDeb.value})
                         {{ topic.author }}
                     </div>
                 </div>
-            </div>
+            </NuxtLink>
         </div>
     </div>
 </template>
