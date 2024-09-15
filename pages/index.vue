@@ -2,10 +2,19 @@
 import SearchRepository from "~/repos/SearchRepository";
 
 const repo     = new SearchRepository();
-const query    = ref<string>('');
+const route    = useRoute();
+const router   = useRouter();
+const query    = ref<string>(route.query.hasOwnProperty('query') ? (route.query.query as string) : '');
 const queryDeb = useDebounce(query, 500);
 
 const {data: topics, status} = await repo.search(() => ({query: queryDeb.value}));
+
+watch(queryDeb, value => {
+    router.push({
+        path: '/',
+        query: {query: value}
+    });
+});
 </script>
 
 <template>
