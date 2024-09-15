@@ -8,15 +8,21 @@ const {data: topic} = await repo.show(parseInt(route.params.id as string));
 </script>
 
 <template>
-    <UHeader title="Rt Parser">
-        <template #right>
-            <UColorModeButton/>
-        </template>
-    </UHeader>
+    <div class="bg-gray-100 dark:bg-gray-950/50">
+        <Head>
+            <title>{{ topic.title }}</title>
+        </Head>
 
-    <UContainer class="py-5">
-        <ElementRenderer v-for="element in topic.description" v-bind="element"/>
-    </UContainer>
+        <UHeader title="Rt Parser">
+            <template #right>
+                <UColorModeButton/>
+            </template>
+        </UHeader>
+
+        <UContainer class="py-5">
+            <ElementRenderer v-for="element in topic.description" v-bind="element"/>
+        </UContainer>
+    </div>
 </template>
 
 <style scoped>
