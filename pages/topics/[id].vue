@@ -7,15 +7,21 @@ const repo  = new TopicRepository();
 const {data: topic} = await repo.show(parseInt(route.params.id as string));
 
 const topAnchor      = ref();
+const downloadAnchor = ref();
 const commentsAnchor = ref();
 
 const {y: topY}      = useElementBounding(topAnchor);
+const {y: downloadY} = useElementBounding(downloadAnchor);
 const {y: commentsY} = useElementBounding(commentsAnchor);
 
 const links = computed(() => [{
     label : 'Topic',
     to    : '#top',
-    active: topY.value <= 0 && commentsY.value > 0
+    active: topY.value <= 0 && downloadY.value > 0 && commentsY.value > 0
+}, {
+    label : 'Download',
+    to    : '#download',
+    active: downloadY.value <= 0 && commentsY.value > 0
 }, {
     label : 'Comments',
     to    : '#comments',
@@ -49,9 +55,46 @@ const links = computed(() => [{
                 </UCard>
 
                 <div class="flex flex-col gap-5 relative">
+                    <div id="download" ref="downloadAnchor" class="absolute -top-20"></div>
+
+                    <h3 class="text-xl font-semibold">Download</h3>
+
+                    <UCard>
+                        <div class="flex flex-col gap-5">
+                            <div class="flex justify-center gap-10">
+                                <p class="font-semibold flex items-center gap-2.5">
+                                    <UIcon name="i-heroicons-server-solid" class="text-xl"/>
+                                    Size: <FileSize :size="topic.size"/>
+                                </p>
+
+                                <p class="text-green-800 dark:text-green-600 font-semibold flex items-center gap-2.5">
+                                    <UIcon name="i-heroicons-arrow-up-tray" class="text-xl"/>
+                                    Seeds: {{ topic.seeds }}
+                                </p>
+
+                                <p class="text-red-800 dark:text-red-600 font-semibold flex items-center gap-2.5">
+                                    <UIcon name="i-heroicons-arrow-down-tray" class="text-xl"/>
+                                    Leeches: {{ topic.leeches }}
+                                </p>
+                            </div>
+
+                            <hr class="dark:border-gray-800"/>
+
+                            <div class="text-center">
+                                <UButton label="Open magnet link"
+                                         icon="i-mdi-magnet"
+                                         size="xl"
+                                         target="_blank"
+                                         :to="topic.magnet"/>
+                            </div>
+                        </div>
+                    </UCard>
+                </div>
+
+                <div class="flex flex-col gap-5 relative">
                     <div id="comments" ref="commentsAnchor" class="absolute -top-20"></div>
 
-                    <h3 class="text-xl font-semibold">Комментарии</h3>
+                    <h3 class="text-xl font-semibold">Comments</h3>
 
                     <UCard v-for="comment in topic.comments" :ui="{body: {padding: ''}}">
                         <div class="flex divide-x dark:divide-gray-800">
@@ -60,7 +103,8 @@ const links = computed(() => [{
                                     <img :src="comment.avatar" class="w-full h-full rounded-md"/>
                                 </div>
 
-                                <div v-else class="w-24 h-24 bg-gray-800 rounded-md flex items-center justify-center text-gray-50">
+                                <div v-else
+                                     class="w-24 h-24 bg-gray-800 rounded-md flex items-center justify-center text-gray-50">
                                     <UIcon name="i-heroicons-user-solid" class="text-4xl"/>
                                 </div>
 
