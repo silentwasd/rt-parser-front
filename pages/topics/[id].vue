@@ -55,7 +55,7 @@ const links = computed(() => [{
 
                     <UCard v-for="comment in topic.comments" :ui="{body: {padding: ''}}">
                         <div class="flex divide-x dark:divide-gray-800">
-                            <div class="p-5">
+                            <div class="p-5 shrink-0">
                                 <div v-if="comment.avatar" class="w-24 h-24">
                                     <img :src="comment.avatar" class="w-full h-full rounded-md"/>
                                 </div>
@@ -69,7 +69,7 @@ const links = computed(() => [{
                                 </div>
                             </div>
 
-                            <div class="p-5">
+                            <div class="p-5 grow">
                                 <ElementRenderer v-for="element in comment.content" v-bind="element"/>
                             </div>
                         </div>

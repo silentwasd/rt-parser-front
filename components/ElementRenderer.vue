@@ -73,6 +73,11 @@ defineProps<{
         <ElementRenderer v-for="element in children" v-bind="element"/>
     </pre>
 
+    <blockquote v-if="type == 'quote'" class="border-s-2 border-primary-500 dark:border-primary-900 px-2.5 py-1.5 bg-primary-50 dark:bg-primary-950 leading-5 text-sm my-1">
+        <p class="font-semibold">{{ text }}:</p>
+        <ElementRenderer v-for="element in children" v-bind="element"/>
+    </blockquote>
+
     <SpoilerElement v-if="type == 'spoiler'" :text="text" :children="children"/>
 </template>
 
