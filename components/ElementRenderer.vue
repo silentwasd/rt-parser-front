@@ -7,7 +7,11 @@ defineProps<{
     text: string,
     align?: string,
     aligned?: boolean,
+    rounded?: boolean,
+    bordered?: boolean,
     direction?: string,
+    padded?: boolean,
+    margined?: boolean,
     children: any[]
 }>();
 </script>
@@ -16,7 +20,7 @@ defineProps<{
     <template v-if="type === 'text'">{{ text }}</template>
 
     <div v-if="type === 'block'"
-         :class="{'text-center': align == 'center'}">
+         :class="{'text-center': align == 'center', 'rounded-md overflow-clip': rounded, 'inline-block': variant == 'inline', 'border dark:border-gray-800': bordered, 'table': variant == 'table', 'align-top': align == 'top', 'px-1.5 py-1': padded, 'mx-1.5 my-1': margined}">
         <ElementRenderer v-for="element in children" v-bind="element"/>
     </div>
 
@@ -63,6 +67,11 @@ defineProps<{
          :class="{'float-left clear-left pe-2.5 pb-1.5': direction === 'left', 'float-right clear-right ps-2.5 pb-1.5': direction === 'right', 'max-w-[33%]': aligned}"/>
 
     <hr v-if="type == 'horizontal'" class="my-1.5 dark:border-primary-900"/>
+
+    <pre v-if="type == 'pre'"
+         :class="{'bg-gray-900 text-gray-50 leading-4': variant == 'nfo'}">
+        <ElementRenderer v-for="element in children" v-bind="element"/>
+    </pre>
 
     <SpoilerElement v-if="type == 'spoiler'" :text="text" :children="children"/>
 </template>

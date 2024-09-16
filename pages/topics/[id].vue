@@ -53,8 +53,26 @@ const links = computed(() => [{
 
                     <h3 class="text-xl font-semibold">Комментарии</h3>
 
-                    <UCard v-for="comment in topic.comments">
-                        <ElementRenderer v-for="element in comment" v-bind="element"/>
+                    <UCard v-for="comment in topic.comments" :ui="{body: {padding: ''}}">
+                        <div class="flex divide-x dark:divide-gray-800">
+                            <div class="p-5">
+                                <div v-if="comment.avatar" class="w-24 h-24">
+                                    <img :src="comment.avatar" class="w-full h-full rounded-md"/>
+                                </div>
+
+                                <div v-else class="w-24 h-24 bg-gray-800 rounded-md flex items-center justify-center text-gray-50">
+                                    <UIcon name="i-heroicons-user-solid" class="text-4xl"/>
+                                </div>
+
+                                <div v-if="comment.nickname" class="w-24 mt-1">
+                                    <p class="font-semibold text-sm text-center truncate">{{ comment.nickname }}</p>
+                                </div>
+                            </div>
+
+                            <div class="p-5">
+                                <ElementRenderer v-for="element in comment.content" v-bind="element"/>
+                            </div>
+                        </div>
                     </UCard>
                 </div>
             </div>
