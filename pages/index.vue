@@ -38,7 +38,7 @@ const columns = [{
 </script>
 
 <template>
-    <div class="flex flex-col items-center h-dvh overflow-auto"
+    <div class="flex flex-col items-center min-h-dvh overflow-auto"
          :class="{'justify-center': !topics}">
         <div class="w-full p-5 sticky top-0 bg-white dark:bg-gray-900 z-10">
             <div class="w-full max-w-[600px] mx-auto flex gap-2.5">

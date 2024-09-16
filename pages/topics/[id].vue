@@ -14,20 +14,30 @@ const {y: topY}      = useElementBounding(topAnchor);
 const {y: downloadY} = useElementBounding(downloadAnchor);
 const {y: commentsY} = useElementBounding(commentsAnchor);
 
-const links = computed(() => [{
-    label : 'Topic',
-    to    : '#top',
-    active: topY.value <= 0 && downloadY.value > 0 && commentsY.value > 0
-}, {
-    label : 'Download',
-    to    : '#download',
-    active: downloadY.value <= 0 && commentsY.value > 0
-}, {
-    label : 'Comments',
-    to    : '#comments',
-    active: commentsY.value <= 0,
-    badge : topic.value.comments.length
-}]);
+const links = computed(() => {
+    const _commentsY = commentsAnchor.value ? commentsY.value : 1;
+
+    const items = [{
+        label : 'Topic',
+        to    : '#top',
+        active: topY.value <= 0 && downloadY.value > 0 && _commentsY > 0
+    }, {
+        label : 'Download',
+        to    : '#download',
+        active: downloadY.value <= 0 && _commentsY > 0
+    }];
+
+    if (topic.value.comments.length > 0) {
+        items.push({
+            label : 'Comments',
+            to    : '#comments',
+            active: commentsY.value <= 0,
+            badge : topic.value.comments.length
+        });
+    }
+
+    return items;
+});
 </script>
 
 <template>
@@ -91,7 +101,7 @@ const links = computed(() => [{
                     </UCard>
                 </div>
 
-                <div class="flex flex-col gap-5 relative">
+                <div v-if="topic.comments.length > 0" class="flex flex-col gap-5 relative">
                     <div id="comments" ref="commentsAnchor" class="absolute -top-20"></div>
 
                     <h3 class="text-xl font-semibold">Comments</h3>
@@ -100,7 +110,7 @@ const links = computed(() => [{
                         <div class="flex divide-x dark:divide-gray-800">
                             <div class="p-5 shrink-0">
                                 <div v-if="comment.avatar" class="w-24 h-24">
-                                    <img :src="comment.avatar" class="w-full h-full rounded-md"/>
+                                    <img :src="comment.avatar" class="w-full h-full rounded-md object-cover"/>
                                 </div>
 
                                 <div v-else
