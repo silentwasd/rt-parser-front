@@ -49,6 +49,12 @@ const links = computed(() => {
         <UHeader title="Rt Parser">
             <template #right>
                 <UColorModeButton/>
+
+                <UButton color="gray"
+                         icon="i-simple-icons-github"
+                         variant="ghost"
+                         to="https://github.com/silentwasd/rt-parser-front"
+                         target="_blank"/>
             </template>
         </UHeader>
 
