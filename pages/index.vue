@@ -40,6 +40,10 @@ const columns = [{
     key     : 'downloads',
     label   : 'Downloads',
     sortable: true
+}, {
+    key     : 'created_at',
+    label   : 'Created at',
+    sortable: true
 }];
 </script>
 
@@ -76,6 +80,12 @@ const columns = [{
 
                 <template #size-data="{row}">
                     <FileSize :size="row.size"/>
+                </template>
+
+                <template #created_at-data="{row}">
+                    <NuxtTime :datetime="new Date(row.created_at * 1000)"
+                              hour="2-digit" minute="2-digit"
+                              day="2-digit" month="2-digit" year="numeric"/>
                 </template>
             </UTable>
         </div>
