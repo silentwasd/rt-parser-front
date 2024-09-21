@@ -54,6 +54,13 @@ watch(() => [queryDeb.value, sort.value], value => {
                 <UColorModeButton size="xl"
                                   variant="solid"
                                   :ui="{rounded: 'rounded-full'}"/>
+
+                <UButton color="gray"
+                         size="xl"
+                         icon="i-simple-icons-github"
+                         to="https://github.com/silentwasd/rt-parser-front"
+                         target="_blank"
+                         :ui="{rounded: 'rounded-full'}"/>
             </div>
         </div>
 
