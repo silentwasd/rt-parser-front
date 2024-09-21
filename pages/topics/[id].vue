@@ -41,7 +41,7 @@ const links = computed(() => {
 </script>
 
 <template>
-    <div class="bg-gray-100 dark:bg-gray-950/50">
+    <div class="bg-gray-100 dark:bg-gray-950/50 min-h-dvh">
         <Head>
             <title>{{ topic.title }}</title>
         </Head>
