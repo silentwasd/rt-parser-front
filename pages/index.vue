@@ -62,6 +62,10 @@ const columns = [{
 </script>
 
 <template>
+    <Head>
+        <title>Search</title>
+    </Head>
+
     <div class="flex flex-col items-center h-dvh"
          :class="{'justify-center': !topics}">
         <div class="w-full p-5 bg-white dark:bg-gray-900 shrink-0"
