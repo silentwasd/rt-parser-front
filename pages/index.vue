@@ -6,6 +6,7 @@ const route    = useRoute();
 const router   = useRouter();
 const query    = ref<string>(route.query.hasOwnProperty('query') ? (route.query.query as string) : '');
 const queryDeb = useDebounce(query, 500);
+const page     = ref<number>(route.query.hasOwnProperty('page') ? parseInt(route.query.page as string) : 1);
 const sort     = ref({
     column   : route.query.hasOwnProperty('sort_column') ? (route.query.sort_column as string) : 'created_at',
     direction: route.query.hasOwnProperty('sort_direction') ? (route.query.sort_direction as string) : 'desc'
@@ -14,7 +15,8 @@ const sort     = ref({
 const {data: topics, status} = await repo.search(() => ({
     query         : queryDeb.value,
     sort_column   : sort.value.column,
-    sort_direction: sort.value.direction
+    sort_direction: sort.value.direction,
+    page          : page.value
 }));
 
 watch(() => [queryDeb.value, sort.value], value => {
@@ -26,39 +28,9 @@ watch(() => [queryDeb.value, sort.value], value => {
             sort_direction: sort.value.direction
         }
     });
-});
 
-const columns = [{
-    key     : 'name',
-    label   : 'Name',
-    sortable: true
-}, {
-    key  : 'category',
-    label: 'Category'
-}, {
-    key  : 'author',
-    label: 'Author'
-}, {
-    key     : 'size',
-    label   : 'Size',
-    sortable: true
-}, {
-    key     : 'seeds',
-    label   : 'Seeds',
-    sortable: true
-}, {
-    key     : 'leeches',
-    label   : 'Leeches',
-    sortable: true
-}, {
-    key     : 'downloads',
-    label   : 'Downloads',
-    sortable: true
-}, {
-    key     : 'created_at',
-    label   : 'Created at',
-    sortable: true
-}];
+    page.value = 1;
+});
 </script>
 
 <template>
@@ -85,35 +57,16 @@ const columns = [{
             </div>
         </div>
 
-        <div v-if="topics" class="w-full flex flex-col gap-5 md:gap-2.5 grow overflow-auto">
-            <UTable :columns="columns" :rows="topics" @select="navigateTo(`/topics/${$event.id}`)"
-                    :loading="status === 'pending'"
-                    class="overflow-auto"
-                    v-model:sort="sort"
-                    sort-mode="manual"
-                    :ui="{
-                        divide: '',
-                        thead: 'sticky top-0 bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 z-10'
-                    }">
-                <template #name-data="{row}">
-                    <p class="truncate w-[200px] md:w-[30vw]" :title="row.name">{{ row.name }}</p>
-                </template>
+        <template v-if="topics">
+            <SearchTable :topics="topics.data"
+                         :status="status"
+                         v-model="sort"/>
 
-                <template #category-data="{row}">
-                    <p class="truncate w-[100px] md:w-[10vw]" :title="row.category">{{ row.category }}</p>
-                </template>
-
-                <template #size-data="{row}">
-                    <FileSize :size="row.size"/>
-                </template>
-
-                <template #created_at-data="{row}">
-                    <NuxtTime :datetime="new Date(row.created_at * 1000)"
-                              hour="2-digit" minute="2-digit"
-                              day="2-digit" month="2-digit" year="numeric"/>
-                </template>
-            </UTable>
-        </div>
+            <div v-if="topics.meta.total > topics.meta.per_page"
+                 class="shrink-0 border-t dark:border-gray-900 w-full flex justify-center items-center px-5 py-2.5">
+                <UPagination :page-count="topics.meta.per_page" :total="topics.meta.total" v-model="page"/>
+            </div>
+        </template>
     </div>
 </template>
 

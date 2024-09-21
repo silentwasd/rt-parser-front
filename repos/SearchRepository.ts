@@ -3,6 +3,10 @@ import type PaginatedCollection from "~/types/PaginatedCollection";
 
 export default class SearchRepository extends Repository {
     public search(query: () => any) {
-        return this.client.getLazyFetch<any[]>(() => '/search?' + querify(query()).toString());
+        return this.client.getLazyFetch<PaginatedCollection<any[]>>(() => '/search?' + querify(query()).toString());
+    }
+
+    public searchFetch(query: () => any) {
+        return this.client.get<any[]>('/search?' + querify(query()).toString());
     }
 }
