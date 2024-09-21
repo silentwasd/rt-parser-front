@@ -38,9 +38,10 @@ const columns = [{
 </script>
 
 <template>
-    <div class="flex flex-col items-center min-h-dvh overflow-auto"
+    <div class="flex flex-col items-center h-dvh"
          :class="{'justify-center': !topics}">
-        <div class="w-full p-5 sticky top-0 bg-white dark:bg-gray-900 z-10">
+        <div class="w-full p-5 bg-white dark:bg-gray-900 shrink-0"
+             :class="{'border-b dark:border-gray-800': topics}">
             <div class="w-full max-w-[600px] mx-auto flex gap-2.5">
                 <UInput v-model="query"
                         placeholder="Search..."
@@ -56,8 +57,13 @@ const columns = [{
             </div>
         </div>
 
-        <div v-if="topics" class="w-full flex flex-col gap-5 md:gap-2.5">
-            <UTable :columns="columns" :rows="topics" @select="navigateTo(`/topics/${$event.id}`)">
+        <div v-if="topics" class="w-full flex flex-col gap-5 md:gap-2.5 grow overflow-auto">
+            <UTable :columns="columns" :rows="topics" @select="navigateTo(`/topics/${$event.id}`)"
+                    class="overflow-auto"
+                    :ui="{
+                        divide: '',
+                        thead: 'sticky top-0 bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 z-10'
+                    }">
                 <template #name-data="{row}">
                     <p class="truncate w-[600px]" :title="row.name">{{ row.name }}</p>
                 </template>
