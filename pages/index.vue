@@ -36,6 +36,9 @@ const columns = [{
     key  : 'category',
     label: 'Category'
 }, {
+    key  : 'author',
+    label: 'Author'
+}, {
     key     : 'size',
     label   : 'Size',
     sortable: true
@@ -89,7 +92,11 @@ const columns = [{
                         thead: 'sticky top-0 bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 z-10'
                     }">
                 <template #name-data="{row}">
-                    <p class="truncate w-[600px]" :title="row.name">{{ row.name }}</p>
+                    <p class="truncate w-[200px] md:w-[30vw]" :title="row.name">{{ row.name }}</p>
+                </template>
+
+                <template #category-data="{row}">
+                    <p class="truncate w-[100px] md:w-[10vw]" :title="row.category">{{ row.category }}</p>
                 </template>
 
                 <template #size-data="{row}">
