@@ -63,7 +63,7 @@ watch(() => [queryDeb.value, sort.value], value => {
                          v-model="sort"/>
 
             <div v-if="topics.meta.total > topics.meta.per_page"
-                 class="shrink-0 border-t dark:border-gray-900 w-full flex justify-center items-center px-5 py-2.5">
+                 class="shrink-0 border-t dark:border-gray-800 w-full flex justify-center items-center px-5 py-2.5">
                 <UPagination :page-count="topics.meta.per_page" :total="topics.meta.total" v-model="page"/>
             </div>
         </template>
