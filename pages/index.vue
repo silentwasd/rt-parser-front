@@ -6,13 +6,25 @@ const route    = useRoute();
 const router   = useRouter();
 const query    = ref<string>(route.query.hasOwnProperty('query') ? (route.query.query as string) : '');
 const queryDeb = useDebounce(query, 500);
+const sort     = ref({
+    column   : route.query.hasOwnProperty('sort_column') ? (route.query.sort_column as string) : 'created_at',
+    direction: route.query.hasOwnProperty('sort_direction') ? (route.query.sort_direction as string) : 'desc'
+});
 
-const {data: topics, status} = await repo.search(() => ({query: queryDeb.value}));
+const {data: topics, status} = await repo.search(() => ({
+    query         : queryDeb.value,
+    sort_column   : sort.value.column,
+    sort_direction: sort.value.direction
+}));
 
-watch(queryDeb, value => {
+watch(() => [queryDeb.value, sort.value], value => {
     router.push({
         path : '/',
-        query: {query: value}
+        query: {
+            query         : queryDeb.value,
+            sort_column   : sort.value.column,
+            sort_direction: sort.value.direction
+        }
     });
 });
 
@@ -21,9 +33,8 @@ const columns = [{
     label   : 'Name',
     sortable: true
 }, {
-    key     : 'category',
-    label   : 'Category',
-    sortable: true
+    key  : 'category',
+    label: 'Category'
 }, {
     key     : 'size',
     label   : 'Size',
@@ -69,7 +80,10 @@ const columns = [{
 
         <div v-if="topics" class="w-full flex flex-col gap-5 md:gap-2.5 grow overflow-auto">
             <UTable :columns="columns" :rows="topics" @select="navigateTo(`/topics/${$event.id}`)"
+                    :loading="status === 'pending'"
                     class="overflow-auto"
+                    v-model:sort="sort"
+                    sort-mode="manual"
                     :ui="{
                         divide: '',
                         thead: 'sticky top-0 bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 z-10'
