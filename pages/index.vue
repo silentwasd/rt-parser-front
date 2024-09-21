@@ -17,23 +17,29 @@ watch(queryDeb, value => {
 });
 
 const columns = [{
-    key  : 'name',
-    label: 'Name'
+    key     : 'name',
+    label   : 'Name',
+    sortable: true
 }, {
-    key  : 'category',
-    label: 'Category'
+    key     : 'category',
+    label   : 'Category',
+    sortable: true
 }, {
-    key  : 'size',
-    label: 'Size'
+    key     : 'size',
+    label   : 'Size',
+    sortable: true
 }, {
-    key  : 'seeds',
-    label: 'Seeds'
+    key     : 'seeds',
+    label   : 'Seeds',
+    sortable: true
 }, {
-    key  : 'leeches',
-    label: 'Leeches'
+    key     : 'leeches',
+    label   : 'Leeches',
+    sortable: true
 }, {
-    key  : 'downloads',
-    label: 'Downloads'
+    key     : 'downloads',
+    label   : 'Downloads',
+    sortable: true
 }];
 </script>
 

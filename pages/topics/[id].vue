@@ -59,7 +59,7 @@ const links = computed(() => {
 
             <div id="top" ref="topAnchor" class="absolute top-0"></div>
 
-            <div class="flex flex-col gap-5 grow">
+            <div class="flex flex-col gap-5 grow w-0">
                 <UCard>
                     <ElementRenderer v-for="element in topic.description" v-bind="element"/>
                 </UCard>

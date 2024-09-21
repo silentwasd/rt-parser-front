@@ -21,7 +21,7 @@ const value = computed(() => {
 </script>
 
 <template>
-    {{ value }}
+    <span>{{ value }}</span>
 </template>
 
 <style scoped>

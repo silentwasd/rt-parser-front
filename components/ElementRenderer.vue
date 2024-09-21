@@ -36,7 +36,7 @@ defineProps<{
         <ElementRenderer v-for="element in children" v-bind="element"/>
     </li>
 
-    <a v-if="type == 'anchor'" :href="text" class="text-primary-600 hover:text-primary-800 font-semibold group [&>img]:m-1.5">
+    <a v-if="type == 'anchor'" :href="text" class="text-primary-600 hover:text-primary-800 font-semibold group [&>img]:m-1.5 break-all">
         <ElementRenderer v-for="element in children" v-bind="element"/>
     </a>
 
