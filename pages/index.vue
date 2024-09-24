@@ -40,39 +40,9 @@ watch(() => [queryDeb.value, sort.value], value => {
 
     <div class="flex flex-col items-center h-dvh"
          :class="{'justify-center': !topics || topics.data.length == 0}">
-        <div class="w-full p-5 bg-white dark:bg-gray-900 shrink-0"
+        <div class="w-full py-2.5 bg-white dark:bg-gray-900 shrink-0"
              :class="{'border-b dark:border-gray-800': topics && topics.data.length > 0}">
-            <div class="w-full max-w-[600px] mx-auto">
-                <div class="flex gap-2.5">
-                    <UInput v-model="query"
-                            placeholder="Search..."
-                            size="xl"
-                            :loading="status === 'pending'"
-                            trailing
-                            class="grow"
-                            :ui="{rounded: 'rounded-full'}"/>
-
-                    <UColorModeButton size="xl"
-                                      variant="solid"
-                                      :ui="{rounded: 'rounded-full'}"/>
-
-                    <UButton color="gray"
-                             size="xl"
-                             icon="i-simple-icons-github"
-                             to="https://github.com/silentwasd/rt-parser-front"
-                             target="_blank"
-                             :ui="{rounded: 'rounded-full'}"/>
-                </div>
-
-                <div class="mt-1.5">
-                    <NuxtLink to="/movies">
-                        <UBadge :ui="{rounded: 'rounded-xl'}">
-                            Movies
-                            <span class="ms-1 bg-transparent/50 rounded-md px-1">{{ topics?.counters.movies }}</span>
-                        </UBadge>
-                    </NuxtLink>
-                </div>
-            </div>
+            <SearchPanel :loading="status === 'pending'" :counters="topics?.counters" v-model="query"/>
         </div>
 
         <template v-if="topics && topics.data.length > 0">

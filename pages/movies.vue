@@ -5,10 +5,17 @@ const repo      = new MovieRepository();
 const route     = useRoute();
 const routePage = route.query.hasOwnProperty('page') ? parseInt(route.query.page as string) : 1;
 const page      = ref<number>(routePage);
+const query     = ref<string>(route.query.hasOwnProperty('query') ? route.query.query as string : '');
+const queryDeb  = useDebounce(query, 500);
 
-const {data: movies} = await repo.index(() => ({page: page.value}));
+const {data: movies, status} = await repo.index(() => ({
+    page: page.value, query: queryDeb.value
+}));
 
-watch(page, value => navigateTo(`/movies?` + querify({page: value})));
+watch(() => [page.value, queryDeb.value], value => navigateTo(`/movies?` + querify({
+    page : page.value,
+    query: queryDeb.value
+})));
 </script>
 
 <template>
@@ -17,8 +24,13 @@ watch(page, value => navigateTo(`/movies?` + querify({page: value})));
     </Head>
 
     <div class="flex flex-col h-dvh">
+        <div class="shrink-0 px-5 py-2.5 border-b flex items-center justify-center">
+            <SearchPanel :loading="status === 'pending'" :counters="movies?.counters" v-model="query"/>
+        </div>
+
         <div class="grow overflow-auto">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-5 p-5">
+            <div
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-5 p-5">
                 <NuxtLink v-for="movie in movies?.data ?? []"
                           :id="movie.id" class="relative border rounded-md overflow-clip"
                           :to="`/topics/${movie.topic_id}`">
