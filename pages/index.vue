@@ -19,16 +19,16 @@ const {data: topics, status} = await repo.search(() => ({
     page          : page.value
 }));
 
-watch(() => [queryDeb.value, sort.value], value => {
-    router.push({
-        path : '/',
-        query: {
-            query         : queryDeb.value,
-            sort_column   : sort.value.column,
-            sort_direction: sort.value.direction
-        }
-    });
+watch(() => [queryDeb.value, sort.value, page.value], value => {
+    navigateTo(`/?` + querify({
+        query         : queryDeb.value,
+        sort_column   : sort.value.column,
+        sort_direction: sort.value.direction,
+        page          : page.value
+    }));
+});
 
+watch(queryDeb, value => {
     page.value = 1;
 });
 </script>
