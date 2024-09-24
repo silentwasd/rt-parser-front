@@ -45,7 +45,7 @@ const counters = useState('counters', () => props.counters);
                 <UBadge :ui="{rounded: 'rounded-xl'}" :color="isMoviesSelected ? 'primary' : 'gray'">
                     Movies
                     <span class="ms-1 rounded-md px-1"
-                          :class="isMoviesSelected ? 'bg-transparent/50' : 'bg-transparent/10'">
+                          :class="isMoviesSelected ? 'bg-transparent/50 dark:bg-transparent/20' : 'bg-transparent/10'">
                         {{ counters?.movies ?? 0 }}
                     </span>
                 </UBadge>

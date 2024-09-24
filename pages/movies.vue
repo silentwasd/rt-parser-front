@@ -24,7 +24,7 @@ watch(() => [page.value, queryDeb.value], value => navigateTo(`/movies?` + queri
     </Head>
 
     <div class="flex flex-col h-dvh">
-        <div class="shrink-0 px-5 py-2.5 border-b flex items-center justify-center">
+        <div class="shrink-0 px-5 py-2.5 border-b dark:border-gray-800 flex items-center justify-center">
             <SearchPanel :loading="status === 'pending'" :counters="movies?.counters" v-model="query"/>
         </div>
 
@@ -32,13 +32,13 @@ watch(() => [page.value, queryDeb.value], value => navigateTo(`/movies?` + queri
             <div
                 class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-5 p-5">
                 <NuxtLink v-for="movie in movies?.data ?? []"
-                          :id="movie.id" class="relative border rounded-md overflow-clip"
+                          :id="movie.id" class="relative border dark:border-gray-800 rounded-md overflow-clip"
                           :to="`/topics/${movie.topic_id}`">
                     <div v-if="movie.cover"
-                         class="aspect-[7/8] bg-contain bg-no-repeat bg-center bg-gray-900"
+                         class="aspect-[7/8] bg-contain bg-no-repeat bg-center bg-gray-950"
                          :style="`background-image: url(${fileUrl(movie.cover)})`"></div>
 
-                    <div v-else class="aspect-[7/8] bg-gray-900 flex items-center justify-center">
+                    <div v-else class="aspect-[7/8] bg-gray-950 flex items-center justify-center">
                         <UIcon name="i-heroicons-photo-solid" class="text-6xl text-gray-50"/>
                     </div>
 
@@ -49,7 +49,7 @@ watch(() => [page.value, queryDeb.value], value => navigateTo(`/movies?` + queri
             </div>
         </div>
 
-        <div class="shrink-0 px-5 py-2.5 border-t flex items-center justify-center">
+        <div class="shrink-0 px-5 py-2.5 border-t dark:border-gray-800 flex items-center justify-center">
             <UPagination :page-count="movies?.meta.per_page" :total="movies?.meta.total ?? 0" v-model="page"/>
         </div>
     </div>
