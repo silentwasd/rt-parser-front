@@ -16,6 +16,10 @@ watch(() => [page.value, queryDeb.value], value => navigateTo(`/movies?` + queri
     page : page.value,
     query: queryDeb.value
 })));
+
+watch(queryDeb, value => {
+    page.value = 1;
+});
 </script>
 
 <template>
