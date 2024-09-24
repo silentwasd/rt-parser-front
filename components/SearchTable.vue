@@ -41,16 +41,17 @@ const sort = defineModel({required: true});
 
 <template>
     <div class="w-full flex flex-col gap-5 md:gap-2.5 overflow-auto" ref="scroll">
-        <UTable :columns="columns" :rows="topics" @select="navigateTo(`/topics/${$event.id}`)"
+        <UTable :columns="columns"
+                :rows="topics"
                 :loading="status === 'pending'"
                 v-model:sort="sort"
                 sort-mode="manual"
-                :ui="{
-                        divide: '',
-                        thead: 'sticky top-0 bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 z-10'
-                    }">
+                @select="navigateTo(`/topics/${$event.id}`)"
+                :ui="{divide: '', thead: 'sticky top-0 bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 z-10'}">
             <template #name-data="{row}">
-                <p class="truncate w-[200px] md:w-[30vw]" :title="row.name">{{ row.name }}</p>
+                <NuxtLink :to="`/topics/${row.id}`" class="underline underline-offset-4 hover:text-primary">
+                    <p class="truncate w-[200px] md:w-[30vw]" :title="row.name">{{ row.name }}</p>
+                </NuxtLink>
             </template>
 
             <template #category-data="{row}">
