@@ -44,7 +44,7 @@ const counters = useState('counters', () => props.counters);
             <NuxtLink :to="isMoviesSelected ? moveTo('/') : moveTo('/movies')">
                 <UBadge :ui="{rounded: 'rounded-xl'}" :color="isMoviesSelected ? 'primary' : 'gray'">
                     Movies
-                    <span class="ms-1 bg-transparent/50 rounded-md px-1"
+                    <span class="ms-1 rounded-md px-1"
                           :class="isMoviesSelected ? 'bg-transparent/50' : 'bg-transparent/10'">
                         {{ counters?.movies ?? 0 }}
                     </span>
