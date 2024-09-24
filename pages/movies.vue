@@ -17,18 +17,24 @@ watch(page, value => navigateTo(`/movies?` + querify({page: value})));
     </Head>
 
     <div class="flex flex-col h-dvh">
-        <div class="grow grid grid-cols-10 content-start justify-items-center gap-5 p-5 overflow-auto">
-            <NuxtLink v-for="movie in movies?.data ?? []" :id="movie.id" :to="`/topics/${movie.topic_id}`" class="block w-[160px] h-[200px] mb-5">
-                <div v-if="movie.cover"
-                     class="aspect-[7/8] bg-contain bg-no-repeat bg-center rounded-lg border bg-gray-900 w-full h-full"
-                     :style="`background-image: url(${fileUrl(movie.cover)})`"></div>
+        <div class="grow overflow-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-5 p-5">
+                <NuxtLink v-for="movie in movies?.data ?? []"
+                          :id="movie.id" class="relative border rounded-md overflow-clip"
+                          :to="`/topics/${movie.topic_id}`">
+                    <div v-if="movie.cover"
+                         class="aspect-[7/8] bg-contain bg-no-repeat bg-center bg-gray-900"
+                         :style="`background-image: url(${fileUrl(movie.cover)})`"></div>
 
-                <div v-else class="aspect-[7/8] bg-gray-900 rounded-lg flex items-center justify-center  w-full h-full">
-                    <UIcon name="i-heroicons-photo-solid" class="text-6xl text-gray-50"/>
-                </div>
+                    <div v-else class="aspect-[7/8] bg-gray-900 flex items-center justify-center">
+                        <UIcon name="i-heroicons-photo-solid" class="text-6xl text-gray-50"/>
+                    </div>
 
-                <h5 class="leading-5 font-semibold text-sm">{{ movie.title }}</h5>
-            </NuxtLink>
+                    <div class="absolute bottom-0 bg-transparent/50 backdrop-blur p-2.5 w-full">
+                        <h5 class="leading-5 font-semibold text-gray-50">{{ movie.title }}</h5>
+                    </div>
+                </NuxtLink>
+            </div>
         </div>
 
         <div class="shrink-0 px-5 py-2.5 border-t flex items-center justify-center">
