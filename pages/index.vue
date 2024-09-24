@@ -39,32 +39,13 @@ watch(() => [queryDeb.value, sort.value], value => {
     </Head>
 
     <div class="flex flex-col items-center h-dvh"
-         :class="{'justify-center': !topics}">
-        <div class="w-full p-5 bg-white dark:bg-gray-900 shrink-0"
-             :class="{'border-b dark:border-gray-800': topics}">
-            <div class="w-full max-w-[600px] mx-auto flex gap-2.5">
-                <UInput v-model="query"
-                        placeholder="Search..."
-                        size="xl"
-                        :loading="status === 'pending'"
-                        trailing
-                        class="grow"
-                        :ui="{rounded: 'rounded-full'}"/>
-
-                <UColorModeButton size="xl"
-                                  variant="solid"
-                                  :ui="{rounded: 'rounded-full'}"/>
-
-                <UButton color="gray"
-                         size="xl"
-                         icon="i-simple-icons-github"
-                         to="https://github.com/silentwasd/rt-parser-front"
-                         target="_blank"
-                         :ui="{rounded: 'rounded-full'}"/>
-            </div>
+         :class="{'justify-center': !topics || topics.data.length == 0}">
+        <div class="w-full py-2.5 bg-white dark:bg-gray-900 shrink-0"
+             :class="{'border-b dark:border-gray-800': topics && topics.data.length > 0}">
+            <SearchPanel :loading="status === 'pending'" :counters="topics?.counters" v-model="query"/>
         </div>
 
-        <template v-if="topics">
+        <template v-if="topics && topics.data.length > 0">
             <SearchTable :topics="topics.data"
                          :status="status"
                          v-model="sort"/>
