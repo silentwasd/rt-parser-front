@@ -46,8 +46,12 @@ watch(queryDeb, value => {
                         <UIcon name="i-heroicons-photo-solid" class="text-6xl text-gray-50"/>
                     </div>
 
-                    <div class="absolute bottom-0 bg-transparent/50 backdrop-blur p-2.5 w-full">
-                        <h5 class="leading-5 font-semibold text-gray-50">{{ movie.title }}</h5>
+                    <div class="absolute bottom-0 bg-transparent/50 backdrop-blur p-2.5 text-gray-50 w-full">
+                        <h5 class="leading-5 font-semibold">
+                            {{ movie.title }}
+                            <span v-if="movie.year.to">({{ movie.year.from }} - {{ movie.year.to }})</span>
+                            <span v-else-if="movie.year.from">({{ movie.year.from }})</span>
+                        </h5>
                     </div>
                 </NuxtLink>
             </div>
