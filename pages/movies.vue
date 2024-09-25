@@ -53,6 +53,11 @@ watch(queryDeb, value => {
                             <span v-else-if="movie.year.from">Год: {{ movie.year.from }}</span>
                         </div>
 
+                        <div v-for="country in movie.countries"
+                             class="bg-transparent/50 backdrop-blur text-gray-50 px-1.5 py-0.5 rounded-md overflow-clip font-semibold text-xs">
+                            {{ country }}
+                        </div>
+
                         <div v-for="genre in movie.genres"
                              class="bg-transparent/50 backdrop-blur text-gray-50 px-1.5 py-0.5 rounded-md overflow-clip font-semibold text-xs">
                             {{ genre }}

@@ -8,4 +8,5 @@ export default interface MovieResource {
         to?: number
     };
     genres: string[];
+    countries: string[];
 }
