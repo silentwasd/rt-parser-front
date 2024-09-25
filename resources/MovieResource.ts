@@ -7,4 +7,5 @@ export default interface MovieResource {
         from?: number,
         to?: number
     };
+    genres: string[];
 }

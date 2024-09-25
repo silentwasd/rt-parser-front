@@ -36,21 +36,32 @@ watch(queryDeb, value => {
             <div
                 class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-5 p-5">
                 <NuxtLink v-for="movie in movies?.data ?? []"
-                          :id="movie.id" class="relative border dark:border-gray-800 rounded-md overflow-clip"
-                          :to="`/topics/${movie.topic_id}`">
+                          :to="`/topics/${movie.topic_id}`"
+                          :key="movie.id"
+                          class="relative block border dark:border-gray-800 rounded-md overflow-clip group">
                     <div v-if="movie.cover"
-                         class="aspect-[7/8] bg-contain bg-no-repeat bg-center bg-gray-950"
+                         class="aspect-[7/8] bg-contain bg-no-repeat bg-center bg-gray-950 transition-all group-hover:scale-110"
                          :style="`background-image: url(${fileUrl(movie.cover)})`"></div>
 
                     <div v-else class="aspect-[7/8] bg-gray-950 flex items-center justify-center">
                         <UIcon name="i-heroicons-photo-solid" class="text-6xl text-gray-50"/>
                     </div>
 
-                    <div class="absolute bottom-0 bg-transparent/50 backdrop-blur p-2.5 text-gray-50 w-full">
+                    <div class="absolute top-0 flex flex-wrap w-full p-2.5 gap-1">
+                        <div class="bg-transparent/50 backdrop-blur text-gray-50 px-1.5 py-0.5 rounded-md overflow-clip font-semibold text-xs">
+                            <span v-if="movie.year.to">Год: {{ movie.year.from }} - {{ movie.year.to }}</span>
+                            <span v-else-if="movie.year.from">Год: {{ movie.year.from }}</span>
+                        </div>
+
+                        <div v-for="genre in movie.genres"
+                             class="bg-transparent/50 backdrop-blur text-gray-50 px-1.5 py-0.5 rounded-md overflow-clip font-semibold text-xs">
+                            {{ genre }}
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-0 bg-transparent/50 backdrop-blur px-2.5 py-1.5 text-gray-50 w-full">
                         <h5 class="leading-5 font-semibold">
                             {{ movie.title }}
-                            <span v-if="movie.year.to">({{ movie.year.from }} - {{ movie.year.to }})</span>
-                            <span v-else-if="movie.year.from">({{ movie.year.from }})</span>
                         </h5>
                     </div>
                 </NuxtLink>
@@ -64,5 +75,4 @@ watch(queryDeb, value => {
 </template>
 
 <style scoped>
-
 </style>
