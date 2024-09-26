@@ -58,6 +58,11 @@ watch(queryDeb, value => {
                             {{ country }}
                         </div>
 
+                        <div v-if="movie.release"
+                             class="bg-transparent/50 backdrop-blur text-gray-50 px-1.5 py-0.5 rounded-md overflow-clip font-semibold text-xs">
+                            {{ movie.release }}
+                        </div>
+
                         <div v-for="genre in movie.genres"
                              class="bg-transparent/50 backdrop-blur text-gray-50 px-1.5 py-0.5 rounded-md overflow-clip font-semibold text-xs">
                             {{ genre }}

@@ -9,4 +9,5 @@ export default interface MovieResource {
     };
     genres: string[];
     countries: string[];
+    release: string;
 }
