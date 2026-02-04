@@ -11,4 +11,13 @@ export default defineNuxtConfig({
             assetUrl: process.env.NUXT_ASSET_URL
         }
     },
+
+    devServer: {
+        host: '0.0.0.0',
+
+        https: {
+            key : process.env.SSL_KEY,
+            cert: process.env.SSL_CERT
+        }
+    }
 })

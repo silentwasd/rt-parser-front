@@ -39,18 +39,6 @@ const counters = useState('counters', () => props.counters);
                      target="_blank"
                      :ui="{rounded: 'rounded-full'}"/>
         </div>
-
-        <div class="mt-1.5">
-            <NuxtLink :to="isMoviesSelected ? moveTo('/') : moveTo('/movies')">
-                <UBadge :ui="{rounded: 'rounded-xl'}" :color="isMoviesSelected ? 'primary' : 'gray'">
-                    Movies
-                    <span class="ms-1 rounded-md px-1"
-                          :class="isMoviesSelected ? 'bg-transparent/50 dark:bg-transparent/20' : 'bg-transparent/10'">
-                        {{ counters?.movies ?? 0 }}
-                    </span>
-                </UBadge>
-            </NuxtLink>
-        </div>
     </div>
 </template>
 
