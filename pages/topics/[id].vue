@@ -38,6 +38,10 @@ const links = computed(() => {
 
     return items;
 });
+
+useSeoMeta({
+    title: topic.value.title ?? '???'
+});
 </script>
 
 <template>
